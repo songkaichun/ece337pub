@@ -1,0 +1,102 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/ecegrid/a/mg91/ece337/Project
+vn_bitmultiplier
+Z1 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
+Z2 !s110 1509916190
+!i10b 1
+!s100 cI2Wi^hf`15k0]S<N_]2?1
+IehoPXf1dH5jCV@E]LKnhz3
+Z3 V`JN@9S9cnhjKRR_L]QIcM3
+!s105 n_bitmultiplier_sv_unit
+S1
+R0
+Z4 w1509916188
+Z5 8source/n_bitmultiplier.sv
+Z6 Fsource/n_bitmultiplier.sv
+L0 9
+Z7 OL;L;10.3b;59
+r1
+!s85 0
+31
+Z8 !s108 1509916190.007232
+Z9 !s107 source/n_bitmultiplier.sv|
+Z10 !s90 -reportprogress|300|source/n_bitmultiplier.sv|
+!i113 0
+Z11 o-L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Xn_bitmultiplier_sv_unit
+R1
+R2
+!i10b 1
+!s100 iDYC]bPMenWNChoW??ORz2
+I`>E[Je7Czhe1RV<I95h^X3
+V`>E[Je7Czhe1RV<I95h^X3
+!i103 1
+S1
+R0
+R4
+R5
+R6
+L0 81
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 0
+R11
+vtb_adder_8bit
+R1
+!s110 1509599278
+!i10b 1
+!s100 oAA9HHEGgV[bnQ9A^LSRM1
+I3nLKBcO8CLLW6j_?oA2be3
+R3
+Z12 !s105 tb_n_bitmultiplier_sv_unit
+S1
+R0
+w1509599264
+Z13 8source/tb_n_bitmultiplier.sv
+Z14 Fsource/tb_n_bitmultiplier.sv
+L0 9
+R7
+r1
+!s85 0
+31
+!s108 1509599278.577671
+!s107 source/tb_n_bitmultiplier.sv|
+Z15 !s90 -reportprogress|300|source/tb_n_bitmultiplier.sv|
+!i113 0
+R11
+vtb_n_bitmultiplier
+R1
+!s110 1509917367
+!i10b 1
+!s100 fMFF>5kgLQc6Z0^TCjo?k1
+I;@1V1;`>7W^=LjShI[nPK0
+R3
+R12
+S1
+R0
+w1509917365
+R13
+R14
+L0 9
+R7
+r1
+!s85 0
+31
+!s108 1509917367.274019
+!s107 source/tb_n_bitmultiplier.sv|
+R15
+!i113 0
+R11
