@@ -1,0 +1,11 @@
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+Start time: 22:52:07 on Dec 05,2017
+vlog -sv -work source_work source/tb_matrixgenerator.sv 
+-- Compiling module tb_matrixgenerator
+** Note: source/tb_matrixgenerator.sv(32): Promoting a concatenation to an assignment pattern.
+** Note: source/tb_matrixgenerator.sv(33): Promoting a concatenation to an assignment pattern.
+
+Top level modules:
+	tb_matrixgenerator
+End time: 22:52:07 on Dec 05,2017, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

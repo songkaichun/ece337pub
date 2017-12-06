@@ -1,0 +1,150 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_matrixgenerator 
+# Start time: 23:18:48 on Dec 05,2017
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.tb_matrixgenerator(fast)
+# Loading work.matrixgenerator(fast)
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+add wave *
+run -all
+# ** Error: Incorrect Product value for test case           0!
+#    Time: 10 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:          0, Actual:  0
+#    Time: 10 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           0!
+#    Time: 10 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:          0, Actual:  0
+#    Time: 10 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           1!
+#    Time: 20 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:          2, Actual:  2
+#    Time: 20 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           1!
+#    Time: 20 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:          2, Actual:  2
+#    Time: 20 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           2!
+#    Time: 30 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:          4, Actual:  4
+#    Time: 30 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           2!
+#    Time: 30 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:          4, Actual:  4
+#    Time: 30 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           3!
+#    Time: 40 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:          6, Actual:  6
+#    Time: 40 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           3!
+#    Time: 40 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:          6, Actual:  6
+#    Time: 40 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           4!
+#    Time: 50 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:          8, Actual:  8
+#    Time: 50 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           4!
+#    Time: 50 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:          8, Actual:  8
+#    Time: 50 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           5!
+#    Time: 60 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         10, Actual: 10
+#    Time: 60 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           5!
+#    Time: 60 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         10, Actual: 10
+#    Time: 60 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           6!
+#    Time: 70 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         12, Actual: 12
+#    Time: 70 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           6!
+#    Time: 70 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         12, Actual: 12
+#    Time: 70 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           7!
+#    Time: 80 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         14, Actual: 14
+#    Time: 80 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           7!
+#    Time: 80 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         14, Actual: 14
+#    Time: 80 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           8!
+#    Time: 90 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         16, Actual:  0
+#    Time: 90 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           8!
+#    Time: 90 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         16, Actual:  0
+#    Time: 90 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case           9!
+#    Time: 100 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         18, Actual:  2
+#    Time: 100 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case           9!
+#    Time: 100 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         18, Actual:  2
+#    Time: 100 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          10!
+#    Time: 110 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         20, Actual:  4
+#    Time: 110 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          10!
+#    Time: 110 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         20, Actual:  4
+#    Time: 110 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          11!
+#    Time: 120 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         22, Actual:  6
+#    Time: 120 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          11!
+#    Time: 120 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         22, Actual:  6
+#    Time: 120 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          12!
+#    Time: 130 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         24, Actual:  8
+#    Time: 130 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          12!
+#    Time: 130 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         24, Actual:  8
+#    Time: 130 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          13!
+#    Time: 140 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         26, Actual: 10
+#    Time: 140 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          13!
+#    Time: 140 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         26, Actual: 10
+#    Time: 140 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          14!
+#    Time: 150 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         28, Actual: 12
+#    Time: 150 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          14!
+#    Time: 150 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         28, Actual: 12
+#    Time: 150 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# ** Error: Incorrect Product value for test case          15!
+#    Time: 160 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Error: Expected:         30, Actual: 14
+#    Time: 160 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 68
+# ** Error: Incorrect Product value for ytest case          15!
+#    Time: 160 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 77
+# ** Error: Expected:         30, Actual: 14
+#    Time: 160 ps  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 78
+# This test bench has run to completion
+# End time: 23:19:42 on Dec 05,2017, Elapsed time: 0:00:54
+# Errors: 0, Warnings: 1
