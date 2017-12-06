@@ -32,7 +32,7 @@ generate
 				begin
 					if(n_rst == 1'b0)
 					begin
-						buffer_px[i][j][k] = 1'b0;
+						buffer_px[i][j][k] <= 1'b0;
 					end
 					if(load_enable)
 					begin

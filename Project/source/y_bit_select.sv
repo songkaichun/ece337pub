@@ -82,32 +82,32 @@ module y_bit_select
 
 		if(state == Gy1)
 		begin
-			a = filter[0][0];
+			a = filter[2][0];
 			b = {1'b0, pixels[0][0]};
 		end
 		else if(state == Gy2)
 		begin
-			a = filter[2][0];
-			b = {1'b0, pixels[0][2]};
+			a = filter[2][1];
+			b = {1'b0, pixels[1][0]};
 		end
 		else if(state == Gy3)
 		begin
-			a = filter[0][1];
-			b = {1'b0, pixels[1][0]};
+			a = filter[2][2];
+			b = {1'b0, pixels[2][0]};
 		end
 		else if(state == Gy4)
 		begin
-			a = filter[2][1];
-			b = {1'b0, pixels[1][2]};
+			a = filter[0][0];
+			b = {1'b0, pixels[0][2]};
 		end
 		else if(state == Gy5)
 		begin
-			a = filter[0][2];
-			b = {1'b0, pixels[2][0]};
+			a = filter[0][1];
+			b = {1'b0, pixels[1][2]};
 		end
 		else if(state == Gy6)
 		begin
-			a = filter[2][2];
+			a = filter[0][2];
 			b = {1'b0, pixels[2][2]};
 		end
 		else if(state == DONE)

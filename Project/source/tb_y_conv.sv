@@ -1,18 +1,17 @@
 // $Id: $
-// File name:   tb_x_conv.sv
-// Created:     12/4/2017
+// File name:   tb_y_conv.sv
+// Created:     12/6/2017
 // Author:      Michael Karrs
 // Lab Section: 337-03
 // Version:     1.0  Initial Design Entry
-// Description: X convolution Block Test Bench.
-
+// Description: Test Bench for Y Convultion Block.
 
 `timescale 1ns / 100ps
 
-module tb_x_conv();
+module tb_y_conv();
 	
-	parameter		INPUT_FILENAME		= "./docs/XConvInput.txt";
-	parameter		INPUT_EXPECTED_FILENAME = "./docs/XConvExpected.txt";
+	parameter		INPUT_FILENAME		= "./docs/YConvInput.txt";
+	parameter		INPUT_EXPECTED_FILENAME = "./docs/YConvExpected.txt";
 	
 	// Txt file based parameters
 	localparam IMG_HEIGHT			= 9;	
@@ -52,13 +51,13 @@ module tb_x_conv();
 	begin
 
 		base_filter[0][0] = 5'b00001;
-		base_filter[0][1] = 5'b00000;
-		base_filter[0][2] = 5'b11111;
-		base_filter[1][0] = 5'b00010;
+		base_filter[0][1] = 5'b00010;
+		base_filter[0][2] = 5'b00001;
+		base_filter[1][0] = 5'b00000;
 		base_filter[1][1] = 5'b00000;
-		base_filter[1][2] = 5'b11110;
-		base_filter[2][0] = 5'b00001;
-		base_filter[2][1] = 5'b00000;
+		base_filter[1][2] = 5'b00000;
+		base_filter[2][0] = 5'b11111;
+		base_filter[2][1] = 5'b11110;
 		base_filter[2][2] = 5'b11111;
 		tb_filter = base_filter;
 	end
@@ -93,7 +92,7 @@ module tb_x_conv();
 	end
 	
 	// DUT portmap
-	x_conv XCONV(
+	y_conv YCONV(
 	.clk(tb_clk),
 	.n_rst(tb_n_rst),
 	.calc_enable(tb_calc_enable),
@@ -132,8 +131,8 @@ module tb_x_conv();
 	task set_filter;
 		input [3:0] brightness;
 	begin
-		tb_filter[1][0] = base_filter[1][0] * brightness;
-		tb_filter[1][2] = base_filter[1][2] * brightness;
+		tb_filter[0][1] = base_filter[0][1] * brightness;
+		tb_filter[2][1] = base_filter[2][1] * brightness;
 	end
 	endtask 
 

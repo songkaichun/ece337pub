@@ -8,6 +8,8 @@
 
 module x_conv 
 (
+	input wire clk,
+	input wire n_rst,
 	input wire calc_enable,
 	input wire [2:0][2:0][3:0] pixels,
 	input wire [2:0][2:0][4:0] filter,
@@ -18,7 +20,6 @@ module x_conv
 	reg [4:0] a;
 	reg [4:0] b;
 	reg [9:0] prod;
-	reg [11:0] padded_nxt_conv;
 	reg [9:0] nxt_conv;
 
 	x_bit_select    BITS (.clk(clk), .n_rst(n_rst), .calc_enable(calc_enable), .pixels(pixels), .filter(filter), .a(a), .b(b), .calc_done(calc_done));
@@ -38,7 +39,9 @@ module x_conv
 	
 	always_comb
 	begin
-		padded_nxt_conv = {2'b00, prod} + {2'b00, conv};
-		nxt_conv = padded_nxt_conv[11:2];
+		if(calc_done == 1'b1)
+			nxt_conv = 10'd0;
+		else
+			nxt_conv = prod + conv;
 	end
 endmodule;
