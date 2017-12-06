@@ -12,7 +12,6 @@ module magnitude
 	input wire n_rst,
 	input wire [9:0] gx,
 	input wire [9:0] gy,
-	input wire calc_done,
 	output reg [3:0] pixel
 );
 
@@ -91,63 +90,63 @@ module magnitude
 
 	always_comb
 	begin
-		if(sum >= 11'd0 && sum < 11'd10)
+		if(sum >= 11'd0 && sum < 11'd3)
 		begin
 			pixel = 4'b0000;
 		end
-		else if(sum >= 11'd10 && sum < 11'd20)
+		else if(sum >= 11'd3 && sum < 11'd6)
 		begin
 			pixel = 4'b0001;
 		end
-		else if(sum >= 11'd20 && sum < 11'd30)
+		else if(sum >= 11'd6 && sum < 11'd9)
 		begin
 			pixel = 4'b0010;
 		end
-		else if(sum >= 11'd30 && sum < 11'd40)
+		else if(sum >= 11'd9 && sum < 11'd12)
 		begin
 			pixel = 4'b0011;
 		end
-		else if(sum >= 11'd40 && sum < 11'd50)
+		else if(sum >= 11'd12 && sum < 11'd15)
 		begin
 			pixel = 4'b0100;
 		end
-		else if(sum >= 11'd50 && sum < 11'd60)
+		else if(sum >= 11'd15 && sum < 11'd18)
 		begin
 			pixel = 4'b0101;
 		end
-		else if(sum >= 11'd60 && sum < 11'd70)
+		else if(sum >= 11'd18 && sum < 11'd21)
 		begin
 			pixel = 4'b0110;
 		end
-		else if(sum >= 11'd70 && sum < 11'd80)
+		else if(sum >= 11'd21 && sum < 11'd24)
 		begin
 			pixel = 4'b0111;
 		end
-		else if(sum >= 11'd80 && sum < 11'd90)
+		else if(sum >= 11'd24 && sum < 11'd27)
 		begin
 			pixel = 4'b1000;
 		end
-		else if(sum >= 11'd90 && sum < 11'd100)
+		else if(sum >= 11'd27 && sum < 11'd30)
 		begin
 			pixel = 4'b1001;
 		end
-		else if(sum >= 11'd100 && sum < 11'd110)
+		else if(sum >= 11'd30 && sum < 11'd33)
 		begin
 			pixel = 4'b1010;
 		end
-		else if(sum >= 11'd110 && sum < 11'd120)
+		else if(sum >= 11'd33 && sum < 11'd36)
 		begin
 			pixel = 4'b1011;
 		end
-		else if(sum >= 11'd120 && sum < 11'd130)
+		else if(sum >= 11'd36 && sum < 11'd39)
 		begin
 			pixel = 4'b1100;
 		end
-		else if(sum >= 11'd130 && sum < 11'd140)
+		else if(sum >= 11'd39 && sum < 11'd42)
 		begin
 			pixel = 4'b1101;
 		end
-		else if(sum >= 11'd140 && sum < 11'd150)
+		else if(sum >= 11'd42 && sum < 11'd45)
 		begin
 			pixel = 4'b1110;
 		end

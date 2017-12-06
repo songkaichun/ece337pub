@@ -1,0 +1,236 @@
+// $Id: $
+// File name:   tb_image_buffer.sv
+// Created:     12/4/2017
+// Author:      Michael Karrs
+// Lab Section: 337-03
+// Version:     1.0  Initial Design Entry
+// Description: Test Bench for Image Buffer.
+
+`timescale 1ns / 100ps
+
+module tb_image_buffer();
+	
+	parameter		INPUT_FILENAME		= "./docs/400x300Test.txt";
+	parameter		RESULT_FILENAME		= "./docs/OutputDataFile.txt";
+	
+	// Txt file based parameters
+	localparam IMG_HEIGHT			= 300;	
+	localparam IMG_WIDTH			= 400;
+	localparam BITS_PER_PIXEL		=4;
+
+	// Define local constants
+	localparam NUM_VAL_BITS	= 16;
+	localparam MAX_VAL_BIT	= NUM_VAL_BITS - 1;
+	localparam CHECK_DELAY	= 1ns;
+	localparam CLK_PERIOD		= 10ns;
+	
+	
+	// Test bench dut port signals
+	reg tb_clk;
+	reg tb_n_rst;
+	reg tb_calc_done;
+	reg tb_load_enable;
+	reg [3:0][3:0][3:0] tb_input_pixels;
+	reg [2:0][2:0][3:0] tb_output_pixels;
+	
+	// Declare Test Bench Variables
+	reg [7:0] tmp_byte;						// temp variable for read/writing bytes from/to files
+	reg [IMG_HEIGHT:0][IMG_WIDTH:0][3:0] image;
+	reg [2:0][2:0][3:0] expected_output;
+	integer test_num = 0;
+	integer error_count = 0;
+	integer tmp;
+	integer in_file;							// Input file handle
+	integer out_file;							// Result file handle
+	string  in_filename;
+	string  out_filename;
+	integer i;
+	integer j;										// Loop variable for misc. for loops
+	
+	
+	task reset_dut;
+	begin
+		// Activate the design's reset (does not need to be synchronize with clock)
+		tb_n_rst = 1'b0;
+		
+		// Wait for a couple clock cycles
+		@(posedge tb_clk);
+		@(posedge tb_clk);
+		
+		// Release the reset
+		@(negedge tb_clk);
+		tb_n_rst = 1;
+		
+		// Wait for a while before activating the design
+		@(posedge tb_clk);
+		@(posedge tb_clk);
+	end
+	endtask
+	
+	// Clock gen block
+	always
+	begin : CLK_GEN
+		tb_clk = 1'b0;
+		#(CLK_PERIOD / 2.0);
+		tb_clk = 1'b1;
+		#(CLK_PERIOD / 2.0);
+	end
+	
+	// DUT portmap
+	image_buffer BUFF(
+									.clk(tb_clk),
+									.n_rst(tb_n_rst),
+									.calc_done(tb_calc_done),
+									.load_enable(tb_load_enable),
+									.input_pixels(tb_input_pixels),
+									.output_pixels(tb_output_pixels)
+								);
+		
+
+	task load_image;
+	begin
+		in_file = $fopen(INPUT_FILENAME, "r");
+		for(i = 0; i < IMG_HEIGHT; i++)
+		begin
+			for(j = 0; j < IMG_WIDTH; j++)
+			begin
+				$fscanf(in_file, "%h ", image[i][j]);
+			end
+		end
+	end
+	endtask	
+
+	task check_outputs;
+	begin
+		#CHECK_DELAY
+		for(i = 0; i < 3; i++)
+		begin
+			for(j = 0; j < 3; j++)
+			begin
+				if(expected_output[i][j] == tb_output_pixels[i][j])
+				begin
+					$display("Correct value of %d for output_pixels[%d][%d]", expected_output[i][j], i, j);
+				end
+				else
+				begin
+					$error("Incorrect value of %d for output_pixels[%d][%d]\nExpected Value of %d", tb_output_pixels[i][j], i, j, expected_output[i][j]);
+					error_count = error_count + 1;
+				end
+			end
+		end
+	end
+	endtask	
+	// Test bench process
+	initial
+	begin
+		// Initial values
+		tb_n_rst = 1'b1;
+		tb_calc_done = 1'b0;
+		tb_load_enable = 1'b0;
+		load_image;
+		for(i = 0; i < 4; i++)
+		begin
+			for(j = 0; j < 4; j++)
+			begin
+				tb_input_pixels[i][j] = image[i][j];
+			end
+		end
+		
+		// Wait for some time before starting test cases
+		#(1ns);
+		
+		// Test Case 1: Reset the buffer
+		test_num = test_num + 1;
+		reset_dut;
+		$display("Test Case 1: Output after reset");
+		expected_output = 'b0;
+		check_outputs;
+		
+		//Test Case 2: output after reset without toggling load_enable
+		test_num = test_num + 1;
+		$display("Test Case 2: Output after reset with low load_enable");
+		expected_output = 'b0;
+		check_outputs;
+	
+		//Test Case 3: output after reset with toggling load_enable
+		test_num = test_num + 1;
+		tb_load_enable = 1'b1;
+		@(posedge tb_clk)
+		@(posedge tb_clk)
+		tb_load_enable = 1'b0;
+		@(posedge tb_clk)
+
+		$display("Test Case 3: Output after reset with high load_enable");
+		for(i = 0; i < 3; i++)
+		begin
+			for(j = 0; j < 3; j++)
+			begin
+				expected_output[i][j] = image[i][j];
+			end
+		end
+		check_outputs;
+
+		//Test Case 4: output after one clock cycle toggle of calc_done
+		test_num = test_num + 1;
+		tb_calc_done = 1'b1;
+		@(posedge tb_clk)
+		tb_calc_done = 1'b0;
+		@(posedge tb_clk)
+
+		$display("Test Case 4: Output after one clock cycle of calc_done");
+		for(i = 0; i < 3; i++)
+		begin
+			for(j = 0; j < 3; j++)
+			begin
+				expected_output[i][j] = image[i][j+1];
+			end
+		end
+		check_outputs;
+
+		//Test Case 5: output after two toggles of calc_done
+		test_num = test_num + 1;
+		tb_calc_done = 1'b1;
+		@(posedge tb_clk)
+		tb_calc_done = 1'b0;
+		@(posedge tb_clk)
+
+		$display("Test Case 5: Output after two clock cycles of calc_done");
+		for(i = 0; i < 3; i++)
+		begin
+			for(j = 0; j < 3; j++)
+			begin
+				expected_output[i][j] = image[i+1][j];
+			end
+		end
+		check_outputs;
+
+		//Test Case 6: output after three toggles of calc_done
+		test_num = test_num + 1;
+		tb_calc_done = 1'b1;
+		@(posedge tb_clk)
+		tb_calc_done = 1'b0;
+		@(posedge tb_clk)
+
+		$display("Test Case 6: Output after three clock cycles of calc_done");
+		for(i = 0; i < 3; i++)
+		begin
+			for(j = 0; j < 3; j++)
+			begin
+				expected_output[i][j] = image[i+1][j+1];
+			end
+		end
+		check_outputs;
+
+		//Test Case 7: output after four toggles of calc_done
+		test_num = test_num + 1;
+		tb_calc_done = 1'b1;
+		@(posedge tb_clk)
+		tb_calc_done = 1'b0;
+		@(posedge tb_clk)
+
+		$display("Test Case 7: Output after four clock cycles of calc_done");
+		expected_output = 'b0;
+		check_outputs;
+
+	end
+endmodule;

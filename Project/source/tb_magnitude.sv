@@ -5,7 +5,6 @@
 // Lab Section: 337-03
 // Version:     1.0  Initial Design Entry
 // Description: Test Bench for the Magnitude Functional Block.
-
 module tb_magnitude();
 
 	// Define local constants
@@ -16,7 +15,6 @@ module tb_magnitude();
 	// Test bench dut port signals
 	reg tb_clk;
 	reg tb_n_rst;
-	reg tb_calc_done;
 	reg [9:0] tb_gx;
 	reg [9:0] tb_gy;
 	reg [3:0] tb_pixel;
@@ -25,6 +23,7 @@ module tb_magnitude();
 	integer test_num = 0;
 	integer error_count = 0;
 	reg [3:0] expected_output;
+	int sum;
 	integer i;
 	integer j;										// Loop variable for misc. for loops
 	
@@ -60,7 +59,6 @@ module tb_magnitude();
 	magnitude MAG(
 									.clk(tb_clk),
 									.n_rst(tb_n_rst),
-									.calc_done(tb_calc_done),
 									.gx(tb_gx),
 									.gy(tb_gy),
 									.pixel(tb_pixel)
@@ -70,7 +68,7 @@ module tb_magnitude();
 	task check_outputs;
 	begin
 		#CHECK_DELAY
-		if(expected_output == tb_pixel)
+		if(expected_output == tb_pixel || expected_output-1 == tb_pixel || expected_output+1 == tb_pixel)
 		begin
 			$display("Test Case %d: Correct Output of: %d", test_num, tb_pixel);
 		end
@@ -117,45 +115,82 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		tb_gx = 10'd64;
 		tb_gy = 10'd64;
-		expected_output = 4'b0011;
+		expected_output = 4'b1010;
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		check_outputs;
 
-		//Test Case 4: output when gx = 270 and gy = 270
+		//Test Case 4: output when gx = 150 and gy = 150
 		$display("Test Case 4: Output with max gx and gy value.");
 		test_num = test_num + 1;
-		tb_gx = 10'd270;
-		tb_gy = 10'd270;
+		tb_gx = 10'd150;
+		tb_gy = 10'd150;
 		expected_output = 4'b1111;
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		check_outputs;
 
-		//Test Case 5: output when gx = -270 and gy = -270
-		$display("Test Case 4: Output with max gx and gy value.");
+		//Test Case 5: output when gx = -150 and gy = -150
+		$display("Test Case 5: Output with max gx and gy value.");
 		test_num = test_num + 1;
-		tb_gx = 10'b1011110010;
-		tb_gy = 10'b1011110010;
+		tb_gx = 10'b1101101010;
+		tb_gy = 10'b1101101010;
 		expected_output = 4'b1111;
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		@(posedge tb_clk)
 		check_outputs;
 
-		//Test Case 5: output when gx = -270 and gy = -270
-		$display("Test Case 4: Output with max gx and gy value.");
-		test_num = test_num + 1;
-		tb_gx = 10'b1011110010;
-		tb_gy = 10'b1011110010;
-		expected_output = 4'b1111;
-		@(posedge tb_clk)
-		@(posedge tb_clk)
-		@(posedge tb_clk)
-		check_outputs;
-
+		for(i = -150; i < 151; i++)
+		begin
+			for(j = -150; j < 151; j++)
+			begin
+				test_num = test_num+1;
+				tb_gx = i;
+				tb_gy = j;
+				sum = (i/16)*(i/16) + (j/16)*(j/16);
+				if(sum >= 0 && sum < 3)
+					expected_output = 4'b0000;
+				else if(sum < 6)
+					expected_output = 4'b0001;
+				else if(sum < 9)
+					expected_output = 4'b0001;
+				else if(sum < 12)
+					expected_output = 4'b0010;
+				else if(sum < 15)
+					expected_output = 4'b0011;
+				else if(sum < 18)
+					expected_output = 4'b0100;
+				else if(sum < 21)
+					expected_output = 4'b0101;
+				else if(sum < 24)
+					expected_output = 4'b0110;
+				else if(sum < 27)
+					expected_output = 4'b0111;
+				else if(sum < 30)
+					expected_output = 4'b1000;
+				else if(sum < 33)
+					expected_output = 4'b1001;
+				else if(sum < 36)
+					expected_output = 4'b1010;
+				else if(sum < 39)
+					expected_output = 4'b1011;
+				else if(sum < 42)
+					expected_output = 4'b1100;
+				else if(sum < 45)
+					expected_output = 4'b1101;
+				else if(sum < 48)
+					expected_output = 4'b1110;
+				else
+					expected_output = 4'b1111;
+				@(posedge tb_clk)
+				@(posedge tb_clk)
+				@(posedge tb_clk)
+				check_outputs;
+			end
+		end
 
 	end
 endmodule

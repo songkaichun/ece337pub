@@ -17,7 +17,7 @@ module x_bit_select
 	output reg [4:0] b,
 	output reg calc_done
 );
-	typedef enum bit [3:0] {IDLE, Gx1, Gx2, Gx3, Gx4, Gx5, Gx6, DONE} stateType;
+	typedef enum bit [3:0] {IDLE, Gx1, Gx2, Gx3, Gx4, Gx5, Gx6, DONE1, DONE2} stateType;
 	stateType state;
 	stateType nxt_state;
 
@@ -66,9 +66,13 @@ module x_bit_select
 		end
 		else if (state == Gx6)
 		begin
-			nxt_state = DONE;
+			nxt_state = DONE1;
 		end
-		else if (state == DONE)
+		else if (state == DONE1)
+		begin
+			nxt_state = DONE2;
+		end
+		else if (state == DONE2)
 		begin
 			nxt_state = IDLE;
 		end
@@ -110,7 +114,7 @@ module x_bit_select
 			a = filter[2][0];
 			b = {1'b0, pixels[2][2]};
 		end
-		else if(state == DONE)
+		else if(state == DONE2)
 		begin
 			calc_done = 1'b1;
 		end

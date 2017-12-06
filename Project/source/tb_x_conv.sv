@@ -20,7 +20,7 @@ module tb_x_conv();
 	localparam BITS_PER_PIXEL		= 4;
 
 	// Define timing constants
-	localparam CHECK_DELAY	= 1ns;
+	localparam CHECK_DELAY	= 2ns;
 	localparam CLK_PERIOD	= 10ns;
 	
 	
@@ -146,7 +146,7 @@ module tb_x_conv();
 
 	task check_outputs;
 	begin
-		#CHECK_DELAY
+		#(CHECK_DELAY)
 		if(expected_conv == tb_conv)
 		begin
 			$display("Correct value of %d for tb_conv", expected_conv);
@@ -189,10 +189,10 @@ module tb_x_conv();
 		// Initial values
 		setup_base_filter;
 		load_expected;
-		set_filter(4'b0010);
 		load_image;
 		tb_n_rst = 1'b1;
-		
+		tb_calc_enable = 1'b0;
+		set_pixels(3, 3);
 		// Wait for some time before starting test cases
 		#(1ns);
 		
@@ -205,8 +205,9 @@ module tb_x_conv();
 		check_outputs;
 		
 		//Test Case 2: output of Convolution Block with calc_enable low 
+		set_filter(4'b0010);
 		test_num = test_num + 1;
-		set_pixels(3, 3);
+		
 		$display("Test Case 2: Output long time after reset with low calc_enable");
 		expected_conv = 'b0;
 		expected_calc_done = 1'b0;
@@ -249,6 +250,7 @@ module tb_x_conv();
 					tb_calc_enable = 1'b1;
 					@(posedge tb_clk)
 					tb_calc_enable = 1'b0;
+					@(posedge tb_clk)
 					@(posedge tb_clk)
 					@(posedge tb_clk)
 					@(posedge tb_clk)

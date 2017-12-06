@@ -1,0 +1,216 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps mapped_work.tb_magnitude 
+# Start time: 07:07:43 on Dec 06,2017
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading sv_std.std
+# Loading work.tb_magnitude(fast)
+# Loading work.magnitude(fast)
+# Loading work.magnitude_DW01_add_0(fast)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.math_real(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr(metastabilitywrapperarch)#1
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.prim(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr_core(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.fax1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand3x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.or2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.mux2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi22x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xnor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai22x1(behavioral)#1
+run 5000 ns
+# Test Case 1: Output after reset
+# Test Case           1: Correct Output of:  0
+# Test Case 2: Output with gx = 0 and gy = 0, long time after a reset
+# Test Case           2: Correct Output of:  0
+# Test Case 3: Output with gx = 64 gy = 64
+# Test Case           3: Correct Output of: 10
+# Test Case 4: Output with max gx and gy value.
+# Test Case           4: Correct Output of: 15
+# Test Case 5: Output with max gx and gy value.
+# Test Case           5: Correct Output of: 15
+# Test Case           6: Correct Output of: 15
+# Test Case           7: Correct Output of: 15
+# Test Case           8: Correct Output of: 15
+# Test Case           9: Correct Output of: 15
+# Test Case          10: Correct Output of: 15
+# Test Case          11: Correct Output of: 15
+# Test Case          12: Correct Output of: 15
+# Test Case          13: Correct Output of: 15
+# Test Case          14: Correct Output of: 15
+# Test Case          15: Correct Output of: 15
+# Test Case          16: Correct Output of: 15
+# Test Case          17: Correct Output of: 15
+# Test Case          18: Correct Output of: 15
+# Test Case          19: Correct Output of: 15
+# Test Case          20: Correct Output of: 15
+# Test Case          21: Correct Output of: 15
+# Test Case          22: Correct Output of: 15
+# Test Case          23: Correct Output of: 15
+# Test Case          24: Correct Output of: 15
+# Test Case          25: Correct Output of: 15
+# Test Case          26: Correct Output of: 15
+# Test Case          27: Correct Output of: 15
+# Test Case          28: Correct Output of: 15
+# Test Case          29: Correct Output of: 15
+# Test Case          30: Correct Output of: 15
+# Test Case          31: Correct Output of: 15
+# Test Case          32: Correct Output of: 15
+# Test Case          33: Correct Output of: 15
+# Test Case          34: Correct Output of: 15
+# Test Case          35: Correct Output of: 15
+# Test Case          36: Correct Output of: 15
+# Test Case          37: Correct Output of: 15
+# Test Case          38: Correct Output of: 15
+# Test Case          39: Correct Output of: 15
+# Test Case          40: Correct Output of: 15
+# Test Case          41: Correct Output of: 15
+# Test Case          42: Correct Output of: 15
+# Test Case          43: Correct Output of: 15
+# Test Case          44: Correct Output of: 15
+# Test Case          45: Correct Output of: 15
+# Test Case          46: Correct Output of: 15
+# Test Case          47: Correct Output of: 15
+# Test Case          48: Correct Output of: 15
+# Test Case          49: Correct Output of: 15
+# Test Case          50: Correct Output of: 15
+# Test Case          51: Correct Output of: 15
+# Test Case          52: Correct Output of: 15
+# Test Case          53: Correct Output of: 15
+# Test Case          54: Correct Output of: 15
+# Test Case          55: Correct Output of: 15
+# Test Case          56: Correct Output of: 15
+# Test Case          57: Correct Output of: 15
+# Test Case          58: Correct Output of: 15
+# Test Case          59: Correct Output of: 15
+# Test Case          60: Correct Output of: 15
+# Test Case          61: Correct Output of: 15
+# Test Case          62: Correct Output of: 15
+# Test Case          63: Correct Output of: 15
+# Test Case          64: Correct Output of: 15
+# Test Case          65: Correct Output of: 15
+# Test Case          66: Correct Output of: 15
+# Test Case          67: Correct Output of: 15
+# Test Case          68: Correct Output of: 15
+# Test Case          69: Correct Output of: 15
+# Test Case          70: Correct Output of: 15
+# Test Case          71: Correct Output of: 15
+# Test Case          72: Correct Output of: 15
+# Test Case          73: Correct Output of: 15
+# Test Case          74: Correct Output of: 15
+# Test Case          75: Correct Output of: 15
+# Test Case          76: Correct Output of: 15
+# Test Case          77: Correct Output of: 15
+# Test Case          78: Correct Output of: 15
+# Test Case          79: Correct Output of: 15
+# Test Case          80: Correct Output of: 15
+# Test Case          81: Correct Output of: 15
+# Test Case          82: Correct Output of: 15
+# Test Case          83: Correct Output of: 15
+# Test Case          84: Correct Output of: 15
+# Test Case          85: Correct Output of: 15
+# Test Case          86: Correct Output of: 15
+# Test Case          87: Correct Output of: 15
+# Test Case          88: Correct Output of: 15
+# Test Case          89: Correct Output of: 15
+# Test Case          90: Correct Output of: 15
+# Test Case          91: Correct Output of: 15
+# Test Case          92: Correct Output of: 15
+# Test Case          93: Correct Output of: 15
+# Test Case          94: Correct Output of: 15
+# Test Case          95: Correct Output of: 15
+# Test Case          96: Correct Output of: 15
+# Test Case          97: Correct Output of: 15
+# Test Case          98: Correct Output of: 15
+# Test Case          99: Correct Output of: 15
+# Test Case         100: Correct Output of: 15
+# Test Case         101: Correct Output of: 15
+# Test Case         102: Correct Output of: 15
+# Test Case         103: Correct Output of: 15
+# Test Case         104: Correct Output of: 15
+# Test Case         105: Correct Output of: 15
+# Test Case         106: Correct Output of: 15
+# Test Case         107: Correct Output of: 15
+# Test Case         108: Correct Output of: 15
+# Test Case         109: Correct Output of: 15
+# Test Case         110: Correct Output of: 15
+# Test Case         111: Correct Output of: 15
+# Test Case         112: Correct Output of: 15
+# Test Case         113: Correct Output of: 15
+# Test Case         114: Correct Output of: 15
+# Test Case         115: Correct Output of: 15
+# Test Case         116: Correct Output of: 15
+# Test Case         117: Correct Output of: 15
+# Test Case         118: Correct Output of: 15
+# Test Case         119: Correct Output of: 15
+# Test Case         120: Correct Output of: 15
+# Test Case         121: Correct Output of: 15
+# Test Case         122: Correct Output of: 15
+# Test Case         123: Correct Output of: 15
+# Test Case         124: Correct Output of: 15
+# Test Case         125: Correct Output of: 15
+# Test Case         126: Correct Output of: 15
+# Test Case         127: Correct Output of: 15
+# Test Case         128: Correct Output of: 15
+# Test Case         129: Correct Output of: 15
+# Test Case         130: Correct Output of: 15
+# Test Case         131: Correct Output of: 15
+# Test Case         132: Correct Output of: 15
+# Test Case         133: Correct Output of: 15
+# Test Case         134: Correct Output of: 15
+# Test Case         135: Correct Output of: 15
+# Test Case         136: Correct Output of: 15
+# Test Case         137: Correct Output of: 15
+# Test Case         138: Correct Output of: 15
+# Test Case         139: Correct Output of: 15
+# Test Case         140: Correct Output of: 15
+# Test Case         141: Correct Output of: 15
+# Test Case         142: Correct Output of: 15
+# Test Case         143: Correct Output of: 15
+# Test Case         144: Correct Output of: 15
+# Test Case         145: Correct Output of: 15
+# Test Case         146: Correct Output of: 15
+# Test Case         147: Correct Output of: 15
+# Test Case         148: Correct Output of: 15
+# Test Case         149: Correct Output of: 15
+# Test Case         150: Correct Output of: 15
+# Test Case         151: Correct Output of: 15
+# Test Case         152: Correct Output of: 15
+# Test Case         153: Correct Output of: 15
+# Test Case         154: Correct Output of: 15
+# Test Case         155: Correct Output of: 15
+# Test Case         156: Correct Output of: 15
+# Test Case         157: Correct Output of: 15
+# Test Case         158: Correct Output of: 15
+# Test Case         159: Correct Output of: 15
+# Test Case         160: Correct Output of: 15
+# Test Case         161: Correct Output of: 15
+# Test Case         162: Correct Output of: 15
+# Test Case         163: Correct Output of: 15
+# Test Case         164: Correct Output of: 15
+# Test Case         165: Correct Output of: 15
+# Test Case         166: Correct Output of: 15
+# End time: 07:08:25 on Dec 06,2017, Elapsed time: 0:00:42
+# Errors: 0, Warnings: 0

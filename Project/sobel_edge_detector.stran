@@ -1,0 +1,92 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_sobel_edge_detector 
+# Start time: 09:02:54 on Dec 06,2017
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.tb_sobel_edge_detector(fast)
+# Loading work.sobel_edge_detector(fast)
+# Loading work.mcu(fast)
+# Loading work.image_buffer(fast)
+# Loading work.pixels_select(fast)
+# Loading work.pixel_matrix(fast)
+# Loading work.matrixgenerator(fast)
+# Loading work.x_conv(fast)
+# Loading work.x_bit_select(fast)
+# Loading work.n_bitmultiplier(fast)
+# Loading work.full_adder(fast)
+# Loading work.y_conv(fast)
+# Loading work.y_bit_select(fast)
+# Loading work.magnitude(fast)
+# ** Warning: (vsim-PLI-3691) source/tb_sobel_edge_detector.sv(124): Expected a system task, not a system function '$fscanf'.
+#         Region: /tb_sobel_edge_detector/load_image
+# ** Warning: (vsim-3015) source/sobel_edge_detector.sv(31): [PCDPC] - Port size (4) does not match connection size (1) for port 'bscalar'. The port definition is at: source/matrixgenerator.sv(10).
+#         Region: /tb_sobel_edge_detector/SOBEL/MATRIX
+# ** Warning: (vsim-3839) source/sobel_edge_detector.sv(33): Variable '/tb_sobel_edge_detector/SOBEL/calc_done', driven via a port connection, is multiply driven. See source/sobel_edge_detector.sv(32).
+#         Region: /tb_sobel_edge_detector/SOBEL/YCONV
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run 50 us
+# Test Case 1: Output after reset
+# Correct value of  0 for output_pixel
+# Correct value of 0 for output_enable
+# out_image[0][0]:  0
+# out_image[0][1]:  0
+# out_image[0][2]:  0
+# out_image[1][0]:  0
+# out_image[1][1]:  0
+# out_image[1][2]:  0
+# out_image[2][0]:  0
+# out_image[2][1]:  0
+# out_image[2][2]:  x
+add wave -position insertpoint sim:/tb_sobel_edge_detector/*
+restart
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading sv_std.std
+# Loading work.tb_sobel_edge_detector(fast)
+# Loading work.sobel_edge_detector(fast)
+# Loading work.mcu(fast)
+# Loading work.image_buffer(fast)
+# Loading work.pixels_select(fast)
+# Loading work.pixel_matrix(fast)
+# Loading work.matrixgenerator(fast)
+# Loading work.x_conv(fast)
+# Loading work.x_bit_select(fast)
+# Loading work.n_bitmultiplier(fast)
+# Loading work.full_adder(fast)
+# Loading work.y_conv(fast)
+# Loading work.y_bit_select(fast)
+# Loading work.magnitude(fast)
+# ** Warning: (vsim-PLI-3691) source/tb_sobel_edge_detector.sv(124): Expected a system task, not a system function '$fscanf'.
+#         Region: /tb_sobel_edge_detector/load_image
+# ** Warning: (vsim-3015) source/sobel_edge_detector.sv(31): [PCDPC] - Port size (4) does not match connection size (1) for port 'bscalar'. The port definition is at: source/matrixgenerator.sv(10).
+#         Region: /tb_sobel_edge_detector/SOBEL/MATRIX
+# ** Warning: (vsim-3839) source/sobel_edge_detector.sv(33): Variable '/tb_sobel_edge_detector/SOBEL/calc_done', driven via a port connection, is multiply driven. See source/sobel_edge_detector.sv(32).
+#         Region: /tb_sobel_edge_detector/SOBEL/YCONV
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run 50 us
+# Test Case 1: Output after reset
+# Correct value of  0 for output_pixel
+# Correct value of 0 for output_enable
+# out_image[0][0]:  0
+# out_image[0][1]:  0
+# out_image[0][2]:  0
+# out_image[1][0]:  0
+# out_image[1][1]:  0
+# out_image[1][2]:  0
+# out_image[2][0]:  0
+# out_image[2][1]:  0
+# out_image[2][2]:  x
+# Causality operation skipped due to absence of debug database file
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# End time: 11:41:59 on Dec 06,2017, Elapsed time: 2:39:05
+# Errors: 3, Warnings: 9

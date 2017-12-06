@@ -13,11 +13,6 @@ module tb_image_buffer();
 	parameter		INPUT_FILENAME		= "./docs/400x300Test.txt";
 	parameter		RESULT_FILENAME		= "./docs/OutputDataFile.txt";
 	
-	// Define file io offset constants
-	localparam SEEK_START		= 0;
-	localparam SEEK_CUR		= 1;
-	localparam SEEK_END		= 2;
-	
 	// Txt file based parameters
 	localparam IMG_HEIGHT			= 300;	
 	localparam IMG_WIDTH			= 400;
@@ -37,11 +32,13 @@ module tb_image_buffer();
 	reg tb_load_enable;
 	reg [3:0][3:0][3:0] tb_input_pixels;
 	reg [2:0][2:0][3:0] tb_output_pixels;
+	reg tb_calc_enable;
 	
 	// Declare Test Bench Variables
 	reg [7:0] tmp_byte;						// temp variable for read/writing bytes from/to files
 	reg [IMG_HEIGHT:0][IMG_WIDTH:0][3:0] image;
 	reg [2:0][2:0][3:0] expected_output;
+	reg expected_calc_enable;
 	integer test_num = 0;
 	integer error_count = 0;
 	integer tmp;
@@ -88,7 +85,8 @@ module tb_image_buffer();
 									.calc_done(tb_calc_done),
 									.load_enable(tb_load_enable),
 									.input_pixels(tb_input_pixels),
-									.output_pixels(tb_output_pixels)
+									.output_pixels(tb_output_pixels),
+									.calc_enable(tb_calc_enable)
 								);
 		
 
@@ -121,6 +119,15 @@ module tb_image_buffer();
 					$error("Incorrect value of %d for output_pixels[%d][%d]\nExpected Value of %d", tb_output_pixels[i][j], i, j, expected_output[i][j]);
 					error_count = error_count + 1;
 				end
+				if(expected_calc_enable == tb_calc_enable)
+				begin
+					$display("Correct value of %d for calc_enable", expected_calc_enable);
+				end
+				else
+				begin
+					$error("Incorrect value of %d for calc_enable\nExpected Value of %d", tb_calc_enable, expected_calc_enable);
+					error_count = error_count + 1;
+				end
 			end
 		end
 	end
@@ -130,6 +137,16 @@ module tb_image_buffer();
 	begin
 		// Initial values
 		tb_n_rst = 1'b1;
+		tb_calc_done = 1'b0;
+		tb_load_enable = 1'b0;
+		load_image;
+		for(i = 0; i < 4; i++)
+		begin
+			for(j = 0; j < 4; j++)
+			begin
+				tb_input_pixels[i][j] = image[i][j];
+			end
+		end
 		
 		// Wait for some time before starting test cases
 		#(1ns);
@@ -139,21 +156,14 @@ module tb_image_buffer();
 		reset_dut;
 		$display("Test Case 1: Output after reset");
 		expected_output = 'b0;
+		expected_calc_enable = 1'b0;
 		check_outputs;
 		
 		//Test Case 2: output after reset without toggling load_enable
 		test_num = test_num + 1;
-		load_image;
-		for(i = 0; i < 4; i++)
-		begin
-			for(j = 0; j < 4; j++)
-			begin
-				tb_input_pixels[i][j] = image[i][j];
-			end
-		end
-
 		$display("Test Case 2: Output after reset with low load_enable");
 		expected_output = 'b0;
+		expected_calc_enable = 1'b0;
 		check_outputs;
 	
 		//Test Case 3: output after reset with toggling load_enable
@@ -172,6 +182,7 @@ module tb_image_buffer();
 				expected_output[i][j] = image[i][j];
 			end
 		end
+		expected_calc_enable = 1'b1;
 		check_outputs;
 
 		//Test Case 4: output after one clock cycle toggle of calc_done
@@ -189,6 +200,7 @@ module tb_image_buffer();
 				expected_output[i][j] = image[i][j+1];
 			end
 		end
+		expected_calc_enable = 1'b1;
 		check_outputs;
 
 		//Test Case 5: output after two toggles of calc_done
@@ -206,9 +218,10 @@ module tb_image_buffer();
 				expected_output[i][j] = image[i+1][j];
 			end
 		end
+		expected_calc_enable = 1'b1;
 		check_outputs;
 
-		//Test Case 5: output after three toggles of calc_done
+		//Test Case 6: output after three toggles of calc_done
 		test_num = test_num + 1;
 		tb_calc_done = 1'b1;
 		@(posedge tb_clk)
@@ -223,25 +236,20 @@ module tb_image_buffer();
 				expected_output[i][j] = image[i+1][j+1];
 			end
 		end
+		expected_calc_enable = 1'b1;
 		check_outputs;
 
-		//Test Case 6: output after four toggles of calc_done
+		//Test Case 7: output after four toggles of calc_done
 		test_num = test_num + 1;
 		tb_calc_done = 1'b1;
 		@(posedge tb_clk)
 		tb_calc_done = 1'b0;
+		@(posedge tb_clk)
 
 		$display("Test Case 7: Output after four clock cycles of calc_done");
-		for(i = 0; i < 3; i++)
-		begin
-			for(j = 0; j < 3; j++)
-			begin
-				expected_output[i][j] = image[i][j];
-			end
-		end
+		expected_output = 'b0;
+		expected_calc_enable = 1'b0;
 		check_outputs;
-		
-
 
 	end
-endmodule
+endmodule;

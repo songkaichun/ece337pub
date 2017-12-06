@@ -6,7 +6,7 @@
 // Version:     1.0  Initial Design Entry
 // Description: Bit select fort he y direction for X and Y convolution blocks
 
-module x_bit_select
+module y_bit_select
 (
 	input wire clk,
 	input wire n_rst,
@@ -17,7 +17,7 @@ module x_bit_select
 	output reg [4:0] b,
 	output reg calc_done
 );
-	typedef enum bit [3:0] {IDLE, Gy1, Gy2, Gy3, Gy4, Gy5, Gy6, DONE} stateType;
+	typedef enum bit [3:0] {IDLE, Gy1, Gy2, Gy3, Gy4, Gy5, Gy6, DONE1, DONE2} stateType;
 	stateType state;
 	stateType nxt_state;
 
@@ -66,9 +66,13 @@ module x_bit_select
 		end
 		else if (state == Gy6)
 		begin
-			nxt_state = DONE;
+			nxt_state = DONE1;
 		end
-		else if (state == DONE)
+		else if (state == DONE1)
+		begin
+			nxt_state = DONE2;
+		end
+		else if (state == DON2)
 		begin
 			nxt_state = IDLE;
 		end
@@ -82,35 +86,35 @@ module x_bit_select
 
 		if(state == Gy1)
 		begin
-			a = filter[0][0];
+			a = filter[2][0];
 			b = {1'b0, pixels[0][0]};
 		end
 		else if(state == Gy2)
 		begin
-			a = filter[2][0];
-			b = {1'b0, pixels[0][2]};
+			a = filter[2][1];
+			b = {1'b0, pixels[1][0]};
 		end
 		else if(state == Gy3)
 		begin
-			a = filter[0][1];
-			b = {1'b0, pixels[1][0]};
+			a = filter[2][2];
+			b = {1'b0, pixels[2][0]};
 		end
 		else if(state == Gy4)
 		begin
-			a = filter[2][1];
-			b = {1'b0, pixels[1][2]};
+			a = filter[0][0];
+			b = {1'b0, pixels[0][2]};
 		end
 		else if(state == Gy5)
 		begin
-			a = filter[0][2];
-			b = {1'b0, pixels[2][0]};
+			a = filter[0][1];
+			b = {1'b0, pixels[1][2]};
 		end
 		else if(state == Gy6)
 		begin
-			a = filter[2][2];
+			a = filter[0][2];
 			b = {1'b0, pixels[2][2]};
 		end
-		else if(state == DONE)
+		else if(state == DONE2)
 		begin
 			calc_done = 1'b1;
 		end

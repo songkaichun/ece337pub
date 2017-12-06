@@ -1,0 +1,49 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_matrixgenerator 
+# Start time: 04:51:43 on Dec 06,2017
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.tb_matrixgenerator(fast)
+# Loading work.matrixgenerator(fast)
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run 50 ns
+# ** Info: Correct Product value for xtest case           1!
+#    Time: 2 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           1!
+#    Time: 2 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           2!
+#    Time: 4 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           2!
+#    Time: 4 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           3!
+#    Time: 6 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           3!
+#    Time: 6 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           4!
+#    Time: 8 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           4!
+#    Time: 8 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           5!
+#    Time: 10 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           5!
+#    Time: 10 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           6!
+#    Time: 12 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           6!
+#    Time: 12 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# ** Info: Correct Product value for xtest case           7!
+#    Time: 14 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 56
+# ** Info: Correct Product value for ytest case           7!
+#    Time: 14 ns  Scope: tb_matrixgenerator File: source/tb_matrixgenerator.sv Line: 67
+# This test bench was not run long enough to execute all test cases. Please run this test bench for at least a total of        256 ns
+# End time: 04:52:01 on Dec 06,2017, Elapsed time: 0:00:18
+# Errors: 0, Warnings: 1

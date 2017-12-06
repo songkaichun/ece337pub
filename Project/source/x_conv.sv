@@ -19,11 +19,12 @@ module x_conv
 
 	reg [4:0] a;
 	reg [4:0] b;
+	reg [9:0] nxt_prod;
 	reg [9:0] prod;
 	reg [9:0] nxt_conv;
 
 	x_bit_select    BITS (.clk(clk), .n_rst(n_rst), .calc_enable(calc_enable), .pixels(pixels), .filter(filter), .a(a), .b(b), .calc_done(calc_done));
-	n_bitmultiplier #(5) PROD (.a(a), .b(b), .product(prod));
+	n_bitmultiplier #(5) PROD (.a(a), .b(b), .product(nxt_prod));
 
 	always_ff @ (negedge n_rst, posedge clk)
 	begin
@@ -35,6 +36,14 @@ module x_conv
 		begin
 			conv <= nxt_conv;
 		end
+	end
+
+	always_ff @ (posedge clk, negedge n_rst)
+	begin
+		if(n_rst == 1'b0)
+			prod <= 10'd0;
+		else
+			prod <= nxt_prod;
 	end
 	
 	always_comb

@@ -1,0 +1,144 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_x_conv 
+# Start time: 02:37:03 on Dec 06,2017
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.tb_x_conv(fast)
+# Loading work.x_conv(fast)
+# Loading work.x_bit_select(fast)
+# Loading work.n_bitmultiplier(fast)
+# Loading work.full_adder(fast)
+# ** Warning: (vsim-PLI-3691) source/tb_x_conv.sv(114): Expected a system task, not a system function '$fscanf'.
+#         Region: /tb_x_conv/load_image
+# ** Warning: (vsim-PLI-3691) source/tb_x_conv.sv(126): Expected a system task, not a system function '$fscanf'.
+#         Region: /tb_x_conv/load_expected
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run 5000 ns
+# Test Case 1: Output after reset
+# Correct value of    0 for tb_conv
+# Correct value of 0 for tb_calc_done
+# Test Case 2: Output long time after reset with low calc_enable
+# Correct value of    0 for tb_conv
+# Correct value of 0 for tb_calc_done
+# Test Case 3: Output after 3 clock cycles of high calc enbale
+# Correct value of    0 for tb_conv
+# Correct value of 0 for tb_calc_done
+# Test Case           4: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case           5: 
+# Correct value of  964 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case           6: 
+# Correct value of   60 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case           7: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case           8: 
+# Correct value of 1015 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case           9: 
+# Correct value of   26 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          10: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          11: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          12: 
+# Correct value of 1022 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          13: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          14: 
+# Correct value of  934 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          15: 
+# Correct value of   90 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          16: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          17: 
+# Correct value of 1011 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          18: 
+# Correct value of   38 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          19: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          20: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          21: 
+# Correct value of 1018 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          22: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          23: 
+# Correct value of  904 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          24: 
+# Correct value of  120 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          25: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          26: 
+# Correct value of 1007 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          27: 
+# Correct value of   50 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          28: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          29: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          30: 
+# Correct value of 1014 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          31: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          32: 
+# Correct value of  874 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          33: 
+# Correct value of  150 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          34: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          35: 
+# Correct value of 1003 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          36: 
+# Correct value of   62 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          37: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          38: 
+# Correct value of    0 for tb_conv
+# Correct value of 1 for tb_calc_done
+# Test Case          39: 
+# Correct value of 1010 for tb_conv
+# Correct value of 1 for tb_calc_done
+# End time: 02:37:19 on Dec 06,2017, Elapsed time: 0:00:16
+# Errors: 0, Warnings: 3
