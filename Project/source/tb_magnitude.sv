@@ -8,7 +8,7 @@
 module tb_magnitude();
 
 	// Define local constants
-	localparam CHECK_DELAY	= 1ns;
+	localparam CHECK_DELAY	= 4ns;
 	localparam CLK_PERIOD	= 10ns;
 	
 	
@@ -17,12 +17,15 @@ module tb_magnitude();
 	reg tb_n_rst;
 	reg [9:0] tb_gx;
 	reg [9:0] tb_gy;
+	reg tb_calc_done;
 	reg [3:0] tb_pixel;
+	reg tb_output_enable;
 	
 	// Declare Test Bench Variables
 	integer test_num = 0;
 	integer error_count = 0;
 	reg [3:0] expected_output;
+	reg expected_output_enable;
 	int sum;
 	integer i;
 	integer j;										// Loop variable for misc. for loops
@@ -61,7 +64,9 @@ module tb_magnitude();
 									.n_rst(tb_n_rst),
 									.gx(tb_gx),
 									.gy(tb_gy),
-									.pixel(tb_pixel)
+									.calc_done(tb_calc_done),
+									.pixel(tb_pixel),
+									.output_enable(tb_output_enable)
 								);
 		
 
@@ -77,6 +82,16 @@ module tb_magnitude();
 			$error("Test Case %d: Incorrect Output of: %d Expected Output of: %d", test_num, tb_pixel, expected_output);
 			error_count = error_count + 1;
 		end
+
+		if(expected_output_enable == tb_output_enable)
+		begin
+			$display("Test Case %d: Correct output_enable of: %d", test_num, tb_output_enable);
+		end
+		else
+		begin
+			$error("Test Case %d: Incorrect output_enable of: %d Expected Output of: %d", test_num, tb_output_enable, expected_output_enable);
+			error_count = error_count + 1;
+		end
 	end
 	endtask	
 
@@ -85,8 +100,9 @@ module tb_magnitude();
 	begin
 		// Initial values
 		tb_n_rst = 1'b1;
-		tb_gx = 10'd64;
-		tb_gy = 10'd64;
+		tb_gx = 10'd0;
+		tb_gy = 10'd0;
+		tb_calc_done = 1'b0;
 		
 		// Wait for some time before starting test cases
 		#(1ns);
@@ -96,6 +112,7 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		reset_dut;
 		expected_output = 'b0;
+		expected_output_enable = 1'b0;
 		check_outputs;
 		
 		//Test Case 2: output with gx = 0 and gy = 0
@@ -103,10 +120,12 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		tb_gx = 0;
 		tb_gy = 0;
+		tb_calc_done = 1'b1;
 		expected_output = 'b0;
+		expected_output_enable =1'b1; 
 		@(posedge tb_clk)
-		@(posedge tb_clk)
-		@(posedge tb_clk)
+		#(1ns);
+		tb_calc_done = 1'b0;
 		@(posedge tb_clk)
 		check_outputs;
 	
@@ -115,9 +134,12 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		tb_gx = 10'd64;
 		tb_gy = 10'd64;
+		tb_calc_done = 1'b1;
 		expected_output = 4'b1010;
+		expected_output_enable = 1'b1;
 		@(posedge tb_clk)
-		@(posedge tb_clk)
+		#(1ns);
+		tb_calc_done = 1'b0;
 		@(posedge tb_clk)
 		check_outputs;
 
@@ -126,9 +148,12 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		tb_gx = 10'd150;
 		tb_gy = 10'd150;
+		tb_calc_done = 1'b1;
 		expected_output = 4'b1111;
+		expected_output_enable = 1'b1;
 		@(posedge tb_clk)
-		@(posedge tb_clk)
+		#(1ns);
+		tb_calc_done = 1'b0;
 		@(posedge tb_clk)
 		check_outputs;
 
@@ -137,9 +162,12 @@ module tb_magnitude();
 		test_num = test_num + 1;
 		tb_gx = 10'b1101101010;
 		tb_gy = 10'b1101101010;
+		tb_calc_done = 1'b1;
 		expected_output = 4'b1111;
+		expected_output_enable = 1'b1;
 		@(posedge tb_clk)
-		@(posedge tb_clk)
+		#(1ns);
+		tb_calc_done = 1'b0;
 		@(posedge tb_clk)
 		check_outputs;
 
@@ -150,6 +178,8 @@ module tb_magnitude();
 				test_num = test_num+1;
 				tb_gx = i;
 				tb_gy = j;
+				tb_calc_done = 1'b1;
+				#(1ns)
 				sum = (i/16)*(i/16) + (j/16)*(j/16);
 				if(sum >= 0 && sum < 3)
 					expected_output = 4'b0000;
@@ -186,7 +216,8 @@ module tb_magnitude();
 				else
 					expected_output = 4'b1111;
 				@(posedge tb_clk)
-				@(posedge tb_clk)
+				#(1ns);
+				tb_calc_done = 1'b0;
 				@(posedge tb_clk)
 				check_outputs;
 			end
