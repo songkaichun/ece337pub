@@ -6,8 +6,8 @@
 // Version:     1.0  Initial Design Entry
 // Description: Test Bench for Top Level Sobel Edge Detector.
 module tb_sobel_edge_detector();
-	parameter		INPUT_FILENAME		= "./docs/InputDataFile.txt";
-	parameter		OUTPUT_FILENAME		= "./docs/ImageOutputFile.txt";
+	parameter		INPUT_FILENAME		= "./docs/sun.txt";
+	parameter		OUTPUT_FILENAME		= "./docs/OutputImageFile.txt";
 	
 	// Txt file based parameters
 	localparam IMG_HEIGHT			= 300;	
@@ -44,6 +44,7 @@ module tb_sobel_edge_detector();
 	integer error_count = 0;
 	integer out_row = 1;
 	integer out_col = 1;
+	reg [2:0] next_dir = 3'b000;
 	integer in_file;							// Input file handle
 	integer out_file;							// Result file handle
 	integer i;
@@ -52,7 +53,6 @@ module tb_sobel_edge_detector();
 	integer m;
 	integer n;
 	integer q;
-	integer r;
 	
 	task reset_dut;
 	begin
@@ -102,7 +102,7 @@ module tb_sobel_edge_detector();
 		begin
 			for(j = 0; j < IMG_WIDTH; j++)
 			begin
-				if(i == 0 || j == 0)
+				if(i == 0 || j == 0 || i == IMG_HEIGHT-1 || j == IMG_WIDTH-1)
 					out_image[i][j] = 4'b0000;
 			end
 		end
@@ -123,18 +123,32 @@ module tb_sobel_edge_detector();
 	end
 	endtask	
 
+	task write_out_image_to_file;
+	begin
+		out_file = $fopen(OUTPUT_FILENAME, "w");
+		for(i = 0; i < IMG_HEIGHT; i++)
+		begin
+			for(j = 0; j < IMG_WIDTH; j++)
+			begin
+				$fwrite(out_file, "%h ", out_image[i][j]);
+			end
+		end
+		$fclose(out_file);
+	end
+	endtask	
+
 	task set_HWDATA;
 		input integer r;
 		input integer c;
 	begin
 		q = 67;
-		for(i = r; i < r+4; i++)
+		for(m = r; m < r+4; m++)
 		begin
-			for(j = c; j < c+4; j++)
+			for(n = c; n < c+4; n++)
 			begin
 				for(k = 3; k >= 0; k--)
 				begin
-					tb_HWDATA[q] = image[i][j][k];
+					tb_HWDATA[q] = image[m][n][k];
 					q = q - 1;
 				end
 			end
@@ -147,12 +161,34 @@ module tb_sobel_edge_detector();
 		input integer pix;
 	begin
 		out_image[out_row][out_col] = pix;
-		out_col = out_col + 1;
+		if(next_dir == 3'b000)
+		begin
+			out_col = out_col + 1;			
+			next_dir = 3'b001;
+		end
+		else if(next_dir == 3'b001)
+		begin
+			out_row = out_row + 1;
+			out_col = out_col - 1;
+			next_dir = 3'b010;
+		end
+		else if(next_dir == 3'b010)
+		begin
+			out_col = out_col + 1;
+			next_dir = 3'b011;
+		end
+		else if(next_dir == 3'b011)
+		begin
+			out_row = out_row - 1;
+			out_col = out_col + 1;
+			next_dir = 3'b000;
+		end
 		if(out_col == 399)
 		begin
 			out_col = 1;
-			out_row = out_row+1;
-		end 
+			out_row = out_row + 2;
+			next_dir = 3'b000;
+		end
 	end
 	endtask
 		
@@ -192,7 +228,7 @@ module tb_sobel_edge_detector();
 		tb_HWRITE = 1'b1;
 		tb_HSIZE = 2'b00;
 		tb_HWDATA = 68'd0;
-		brightness_value = 4'b0100;
+		brightness_value = 4'b1000;
 		set_out_image_borders;
 		load_image;
 		
@@ -209,8 +245,8 @@ module tb_sobel_edge_detector();
 		@(posedge tb_HCLK)
 		check_outputs;
 
-		// Test Case 1: Write one pixel buffer to the DUT and asset data ready
-		test_num = test_num + 1;
+		// Test Case 1: Write one pixel buffer to the DUT and assert hready
+		/**test_num = test_num + 1;
 		reset_dut;
 		$display("Test Case 2: Output after one write");
 		expected_HREADYOUT = 1'b1;
@@ -238,6 +274,7 @@ module tb_sobel_edge_detector();
 			tb_HREADY = 1'b0;
 		end
 		store_pixel(tb_HRDATA[3:0]);
+		@(posedge tb_HCLK);
 
 		while(!tb_HREADYOUT)
 		begin
@@ -245,6 +282,7 @@ module tb_sobel_edge_detector();
 			tb_HREADY = 1'b0;
 		end
 		store_pixel(tb_HRDATA[3:0]);
+		@(posedge tb_HCLK);
 
 		while(!tb_HREADYOUT)
 		begin
@@ -252,6 +290,7 @@ module tb_sobel_edge_detector();
 			tb_HREADY = 1'b0;
 		end
 		store_pixel(tb_HRDATA[3:0]);
+		@(posedge tb_HCLK);
 
 		while(!tb_HREADYOUT)
 		begin
@@ -260,6 +299,7 @@ module tb_sobel_edge_detector();
 
 		end
 		store_pixel(tb_HRDATA[3:0]);
+		@(posedge tb_HCLK);
 		check_outputs;
 		
 		set_HWDATA(0,2);
@@ -310,10 +350,11 @@ module tb_sobel_edge_detector();
 			begin
 				$display("Image[%d][%d]: %d", i, j, image[i][j]);
 			end
-		end
-		/**for(i = 0; i < 298; i = i + 2)
+		end**/
+		
+		for(i = 0; i <= 298; i = i + 2)
 		begin
-			for(j = 0; j < 398; j = j + 2)
+			for(j = 0; j <= 398; j = j + 2)
 			begin
 				set_HWDATA(i, j);
 				tb_HWRITE = 1'b1;
@@ -335,9 +376,19 @@ module tb_sobel_edge_detector();
 						tb_HREADY = 1'b0;
 					end
 					store_pixel(tb_HRDATA[3:0]);
+					@(posedge tb_HCLK);
 				end
 			end
-		end
-		$display("Image written into memory.");**/
+		end	
+	
+		$display("Out Image[%d][%d]: %d", i, j, out_image[1][399]);
+		$display("Out Image[%d][%d]: %d", i, j, out_image[2][399]);
+		$display("Out Image[%d][%d]: %d", i, j, out_image[3][399]);
+		$display("Out Image[%d][%d]: %d", i, j, out_image[4][399]);
+
+		$display("Image[4][398]: %d", image[274][4]);
+		$display("Image written into memory.");
+		write_out_image_to_file;
+		$display("Output File Written");
 	end
 endmodule;

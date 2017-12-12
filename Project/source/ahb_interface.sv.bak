@@ -1,0 +1,150 @@
+// $Id: $
+// File name:   ahb_interface.sv
+// Created:     12/11/2017
+// Author:      Michael Karrs
+// Lab Section: 337-03
+// Version:     1.0  Initial Design Entry
+// Description: AHB Interface for the Sobel Edge Detector.
+
+module ahb_interface
+(
+	//slave select signals
+	input wire HSEL,
+	//Global Signals
+	input wire HCLK,
+	input wire HRESETn,
+	//Address, control, and Write data
+	input wire HREADY,
+	input wire [31:0] HADDR,
+	input wire [1:0] HTRANS,
+	input wire HWRITE,
+	input wire [2:0] HSIZE,
+	input wire [67:0] HWDATA,
+	//Transfer Response and Read Data
+	output reg HREADYOUT,
+	output reg [67:0] HRDATA,
+
+	//Input for Output on Bus Logic
+	input wire output_enable,
+	input wire [3:0] pixel,
+	
+	//Output to Buffer
+	output reg [3:0][3:0][3:0] pixels,
+	output reg load_enable,
+
+	//Output to Matrix Generation Block
+	output reg [3:0] brightness_value
+);
+
+//Address Phase Sampling Registers
+reg rHSEL;
+reg [31:0] rHADDR;
+reg [1:0] rHTRANS;
+reg rHWRITE;
+reg [2:0] rHSIZE;
+
+reg HREADYOUT1;
+reg HREADYOUT2;
+reg rLoad_enable1;
+reg rLoad_enable2;
+
+always_ff @ (posedge HCLK, negedge HRESETn) 
+begin
+	if(!HRESETn)
+	begin
+		rHSEL <= 1'b0;
+		rHADDR <= 32'b0;
+		rHTRANS <= 2'b00;
+		rHWRITE <= 1'b0;
+		rHSIZE <= 3'b000;
+	end
+	else if(HREADY)
+	begin
+		rHSEL <= HSEL;
+		rHADDR <= HADDR;
+		rHTRANS <= HTRANS;
+		rHWRITE <= HWRITE;
+		rHSIZE <= HSIZE;
+	end
+end
+
+always_ff @ (posedge HCLK, negedge HRESETn)
+begin
+	if(!HRESETn)
+	begin
+		pixels <= 'b0;
+		brightness_value <= 4'b0010;
+		rLoad_enable1 <= 1'b0;
+		rLoad_enable2 <= 1'b0;
+	end
+	else if(rHSEL && rHWRITE && rHTRANS[1])
+	begin
+		pixels[0][0] <= HWDATA[67:64];
+		pixels[0][1] <= HWDATA[63:60];
+		pixels[0][2] <= HWDATA[59:56];
+		pixels[0][3] <= HWDATA[55:52];
+
+		pixels[1][0] <= HWDATA[51:48];
+		pixels[1][1] <= HWDATA[47:44];
+		pixels[1][2] <= HWDATA[43:40];
+		pixels[1][3] <= HWDATA[39:36];
+
+		pixels[2][0] <= HWDATA[35:32];
+		pixels[2][1] <= HWDATA[31:28];
+		pixels[2][2] <= HWDATA[27:24];
+		pixels[2][3] <= HWDATA[23:20];
+
+		pixels[3][0] <= HWDATA[19:16];
+		pixels[3][1] <= HWDATA[15:12];
+		pixels[3][2] <= HWDATA[11:8];
+		pixels[3][3] <= HWDATA[7:4];
+
+		brightness_value <= HWDATA[3:0];
+
+		rLoad_enable1 <= 1'b1;
+		rLoad_enable2 <= rLoad_enable1;
+
+		HREADYOUT1 <= 1'b1;
+		HREADYOUT2 <= HREADYOUT1;
+	end
+	else if(!rHWRITE)
+	begin
+		rLoad_enable1 <= 1'b0;
+		rLoad_enable2 <= 1'b0;
+	end
+end
+
+always_comb
+begin
+	if(rHWRITE && HREADYOUT1 && !HREADYOUT2)
+	begin
+		HREADYOUT = 1'b1;
+		HRDATA = 68'd0;
+	end
+	else
+	begin
+		if(output_enable == 1'b1)
+		begin
+			HREADYOUT = 1'b1;
+			HRDATA = {64'd0, pixel};
+		end
+		else
+		begin
+			HREADYOUT = 1'b0;
+		end
+	end
+end
+
+always_comb
+begin
+	if(rLoad_enable1 && !rLoad_enable2)
+	begin
+		load_enable = 1'b1;
+	end
+	else
+	begin
+		load_enable = 1'b0;
+	end
+end
+
+endmodule;

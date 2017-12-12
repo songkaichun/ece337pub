@@ -12,7 +12,9 @@ module magnitude
 	input wire n_rst,
 	input wire [9:0] gx,
 	input wire [9:0] gy,
-	output reg [3:0] pixel
+	input wire calc_done,
+	output reg [3:0] pixel,
+	output reg output_enable
 );
 
 	reg [9:0] gx_unsigned_ext;
@@ -25,6 +27,7 @@ module magnitude
 	reg [9:0] gy_squared;
 	reg [10:0] sum;
 	reg [10:0] nxt_sum;
+	reg oe1;
 
 	always_comb
 	begin
@@ -68,6 +71,20 @@ module magnitude
 		begin
 			gx_squared <= nxt_gx_squared;
 			gy_squared <= nxt_gy_squared;
+		end
+	end
+
+	always_ff @(posedge clk, negedge n_rst)
+	begin
+		if(n_rst == 1'b0)
+		begin
+			oe1 <= 1'b0;
+			output_enable <= 1'b0;
+		end
+		else
+		begin
+			oe1 <= calc_done;
+			output_enable <= oe1;
 		end
 	end
 
